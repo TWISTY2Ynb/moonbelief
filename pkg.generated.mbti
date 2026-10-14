@@ -26,6 +26,8 @@ pub fn frame(Array[String]) -> Frame raise BeliefError
 
 pub fn from_commonality(Frame, Array[Double], budget? : Limits) -> Mass raise BeliefError
 
+pub fn fuse(Mass, Mass, Rule, budget? : Limits) -> Mass raise BeliefError
+
 pub fn jousselme(Mass, Mass, budget? : Limits) -> Double raise BeliefError
 
 pub fn limits(max_focals? : Int, max_pairs? : Int, max_dense_cells? : Int) -> Limits raise BeliefError
@@ -38,7 +40,11 @@ pub fn mixture(Mass, Mass, Double, budget? : Limits) -> Mass raise BeliefError
 
 pub fn pcr5(Mass, Mass, budget? : Limits) -> Mass raise BeliefError
 
+pub fn pipeline(Array[Source], Rule, budget? : Limits) -> PipelineResult raise BeliefError
+
 pub fn simple_support(Frame, Int, Double, budget? : Limits) -> Mass raise BeliefError
+
+pub fn source(String, Mass, reliability? : Double) -> Source raise BeliefError
 
 pub fn subset_mobius(Frame, Array[Double], budget? : Limits) -> Array[Double] raise BeliefError
 
@@ -106,6 +112,19 @@ pub fn Frame::to_repr(Self) -> @debug.Repr
 pub fn Frame::union(Self, Int, Int) -> Int raise BeliefError
 pub fn Frame::universe(Self) -> Int
 
+pub struct FusionStep {
+  source : String
+  input_conflict : Double
+  previous_conflict : Double
+  conjunctive_conflict : Double
+  output_conflict : Double
+  output_ignorance : Double
+  output_focals : Int
+} derive(Eq, @debug.Debug)
+pub fn FusionStep::equal(Self, Self) -> Bool
+pub fn FusionStep::not_equal(Self, Self) -> Bool
+pub fn FusionStep::to_repr(Self) -> @debug.Repr
+
 pub struct HypothesisScore {
   index : Int
   label : String
@@ -163,6 +182,37 @@ pub fn Mass::relabel(Self, Array[String], budget? : Limits) -> Self raise Belief
 pub fn Mass::survival(Self) -> Double
 pub fn Mass::to_repr(Self) -> @debug.Repr
 pub fn Mass::weight(Self, Int) -> Double raise BeliefError
+
+pub struct PipelineResult {
+  // private fields
+} derive(Eq, @debug.Debug)
+pub fn PipelineResult::equal(Self, Self) -> Bool
+pub fn PipelineResult::mass(Self) -> Mass
+pub fn PipelineResult::not_equal(Self, Self) -> Bool
+pub fn PipelineResult::pair_work(Self) -> Int
+pub fn PipelineResult::steps(Self) -> Array[FusionStep]
+pub fn PipelineResult::to_repr(Self) -> @debug.Repr
+
+pub(all) enum Rule {
+  Conjunctive
+  Dempster
+  Disjunctive
+  Yager
+  DuboisPrade
+  PairwisePCR5
+} derive(Eq, @debug.Debug)
+pub fn Rule::equal(Self, Self) -> Bool
+pub fn Rule::not_equal(Self, Self) -> Bool
+pub fn Rule::to_repr(Self) -> @debug.Repr
+
+pub struct Source {
+  // private fields
+} derive(Eq, @debug.Debug)
+pub fn Source::equal(Self, Self) -> Bool
+pub fn Source::mass(Self) -> Mass
+pub fn Source::name(Self) -> String
+pub fn Source::not_equal(Self, Self) -> Bool
+pub fn Source::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 
