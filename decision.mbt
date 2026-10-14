@@ -91,7 +91,13 @@ pub fn Mass::expected_losses(
   self : Mass,
   losses : Array[Array[Double]],
 ) -> Array[Double] raise BeliefError {
+  if losses.length() == 0 || losses.length() > 64 {
+    raise Invalid("loss matrix requires 1..64 actions")
+  }
   for row in losses {
+    if row.length() != self.domain.size() {
+      raise Invalid("loss row must match hypothesis count")
+    }
     for value in row {
       if value < 0.0 {
         raise Invalid("loss entries must be nonnegative")
