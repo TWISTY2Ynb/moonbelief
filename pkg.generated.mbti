@@ -75,6 +75,17 @@ pub fn Frame::to_repr(Self) -> @debug.Repr
 pub fn Frame::union(Self, Int, Int) -> Int raise BeliefError
 pub fn Frame::universe(Self) -> Int
 
+pub struct HypothesisScore {
+  index : Int
+  label : String
+  belief : Double
+  plausibility : Double
+  pignistic : Double
+} derive(Eq, @debug.Debug)
+pub fn HypothesisScore::equal(Self, Self) -> Bool
+pub fn HypothesisScore::not_equal(Self, Self) -> Bool
+pub fn HypothesisScore::to_repr(Self) -> @debug.Repr
+
 pub struct Limits {
   // private fields
 } derive(Eq, @debug.Debug)
@@ -108,7 +119,9 @@ pub fn Mass::interval(Self, Int) -> (Double, Double) raise BeliefError
 pub fn Mass::nonspecific_mass(Self) -> Double
 pub fn Mass::normalize(Self, min_survival? : Double, budget? : Limits) -> Self raise BeliefError
 pub fn Mass::not_equal(Self, Self) -> Bool
+pub fn Mass::pignistic(Self, min_survival? : Double) -> Array[Double] raise BeliefError
 pub fn Mass::plausibility(Self, Int) -> Double raise BeliefError
+pub fn Mass::ranking(Self, min_survival? : Double) -> Array[HypothesisScore] raise BeliefError
 pub fn Mass::survival(Self) -> Double
 pub fn Mass::to_repr(Self) -> @debug.Repr
 pub fn Mass::weight(Self, Int) -> Double raise BeliefError
