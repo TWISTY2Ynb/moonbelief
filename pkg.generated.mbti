@@ -12,6 +12,8 @@ pub fn conjunctive(Mass, Mass, budget? : Limits) -> Mass raise BeliefError
 
 pub fn default_limits() -> Limits
 
+pub fn dempster(Mass, Mass, min_survival? : Double, budget? : Limits) -> Mass raise BeliefError
+
 pub fn frame(Array[String]) -> Frame raise BeliefError
 
 pub fn limits(max_focals? : Int, max_pairs? : Int, max_dense_cells? : Int) -> Limits raise BeliefError
@@ -78,6 +80,7 @@ pub fn Mass::frame(Self) -> Frame
 pub fn Mass::ignorance(Self) -> Double raise BeliefError
 pub fn Mass::interval(Self, Int) -> (Double, Double) raise BeliefError
 pub fn Mass::nonspecific_mass(Self) -> Double
+pub fn Mass::normalize(Self, min_survival? : Double, budget? : Limits) -> Self raise BeliefError
 pub fn Mass::not_equal(Self, Self) -> Bool
 pub fn Mass::plausibility(Self, Int) -> Double raise BeliefError
 pub fn Mass::survival(Self) -> Double
