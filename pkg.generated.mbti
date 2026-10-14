@@ -1,0 +1,37 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "TWISTY2Ynb/moonbelief"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn frame(Array[String]) -> Frame raise BeliefError
+
+// Errors
+pub(all) suberror BeliefError {
+  Invalid(String)
+  Budget(String)
+  FrameMismatch
+  TotalConflict
+} derive(Eq, @debug.Debug)
+pub fn BeliefError::equal(Self, Self) -> Bool
+pub fn BeliefError::not_equal(Self, Self) -> Bool
+pub fn BeliefError::to_repr(Self) -> @debug.Repr
+
+// Types and methods
+pub struct Frame {
+  // private fields
+} derive(Eq, @debug.Debug)
+pub fn Frame::equal(Self, Self) -> Bool
+pub fn Frame::labels(Self) -> Array[String]
+pub fn Frame::members(Self, Int) -> Array[String] raise BeliefError
+pub fn Frame::not_equal(Self, Self) -> Bool
+pub fn Frame::size(Self) -> Int
+pub fn Frame::subset(Self, Array[String]) -> Int raise BeliefError
+pub fn Frame::to_repr(Self) -> @debug.Repr
+pub fn Frame::universe(Self) -> Int
+
+// Type aliases
+
+// Traits
