@@ -36,9 +36,13 @@ pub fn limits(max_focals? : Int, max_pairs? : Int, max_dense_cells? : Int) -> Li
 
 pub fn mass(Frame, Array[(Int, Double)], budget? : Limits) -> Mass raise BeliefError
 
+pub fn mass_from_json(Json, budget? : Limits) -> Mass raise BeliefError
+
 pub fn maximum_belief_difference(Mass, Mass, budget? : Limits) -> (Int, Double) raise BeliefError
 
 pub fn mixture(Mass, Mass, Double, budget? : Limits) -> Mass raise BeliefError
+
+pub fn parse_mass(String, budget? : Limits) -> Mass raise BeliefError
 
 pub fn pcr5(Mass, Mass, budget? : Limits) -> Mass raise BeliefError
 
@@ -173,6 +177,7 @@ pub fn Mass::forget_detail(Self, budget? : Limits) -> Self raise BeliefError
 pub fn Mass::frame(Self) -> Frame
 pub fn Mass::ignorance(Self) -> Double raise BeliefError
 pub fn Mass::interval(Self, Int) -> (Double, Double) raise BeliefError
+pub fn Mass::json_text(Self) -> String raise BeliefError
 pub fn Mass::nonspecific_mass(Self) -> Double
 pub fn Mass::normalize(Self, min_survival? : Double, budget? : Limits) -> Self raise BeliefError
 pub fn Mass::not_equal(Self, Self) -> Bool
@@ -182,6 +187,7 @@ pub fn Mass::ranking(Self, min_survival? : Double) -> Array[HypothesisScore] rai
 pub fn Mass::refine(Self, Frame, Array[Int], budget? : Limits) -> Self raise BeliefError
 pub fn Mass::relabel(Self, Array[String], budget? : Limits) -> Self raise BeliefError
 pub fn Mass::survival(Self) -> Double
+pub fn Mass::to_json(Self) -> Json raise BeliefError
 pub fn Mass::to_repr(Self) -> @debug.Repr
 pub fn Mass::weight(Self, Int) -> Double raise BeliefError
 
