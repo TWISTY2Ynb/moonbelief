@@ -6,7 +6,13 @@ import {
 }
 
 // Values
+pub fn default_limits() -> Limits
+
 pub fn frame(Array[String]) -> Frame raise BeliefError
+
+pub fn limits(max_focals? : Int, max_pairs? : Int, max_dense_cells? : Int) -> Limits raise BeliefError
+
+pub fn mass(Frame, Array[(Int, Double)], budget? : Limits) -> Mass raise BeliefError
 
 // Errors
 pub(all) suberror BeliefError {
@@ -38,6 +44,28 @@ pub fn Frame::subsets(Self, Int, max_results? : Int) -> Array[Int] raise BeliefE
 pub fn Frame::to_repr(Self) -> @debug.Repr
 pub fn Frame::union(Self, Int, Int) -> Int raise BeliefError
 pub fn Frame::universe(Self) -> Int
+
+pub struct Limits {
+  // private fields
+} derive(Eq, @debug.Debug)
+pub fn Limits::equal(Self, Self) -> Bool
+pub fn Limits::max_dense_cells(Self) -> Int
+pub fn Limits::max_focals(Self) -> Int
+pub fn Limits::max_pairs(Self) -> Int
+pub fn Limits::not_equal(Self, Self) -> Bool
+pub fn Limits::to_repr(Self) -> @debug.Repr
+
+pub struct Mass {
+  // private fields
+} derive(Eq, @debug.Debug)
+pub fn Mass::conflict(Self) -> Double
+pub fn Mass::entries(Self) -> Array[(Int, Double)]
+pub fn Mass::equal(Self, Self) -> Bool
+pub fn Mass::focal_count(Self) -> Int
+pub fn Mass::frame(Self) -> Frame
+pub fn Mass::not_equal(Self, Self) -> Bool
+pub fn Mass::to_repr(Self) -> @debug.Repr
+pub fn Mass::weight(Self, Int) -> Double raise BeliefError
 
 // Type aliases
 
