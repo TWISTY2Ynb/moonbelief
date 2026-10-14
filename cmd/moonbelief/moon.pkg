@@ -1,0 +1,6 @@
+import {
+  "TWISTY2Ynb/moonbelief" @belief,
+  "moonbitlang/core/env",
+}
+
+pkgtype(kind: "executable")

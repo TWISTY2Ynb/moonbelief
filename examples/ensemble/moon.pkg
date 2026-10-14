@@ -1,0 +1,5 @@
+import {
+  "TWISTY2Ynb/moonbelief" @belief,
+}
+
+pkgtype(kind: "executable")
