@@ -14,6 +14,10 @@ pub fn default_limits() -> Limits
 
 pub fn dempster(Mass, Mass, min_survival? : Double, budget? : Limits) -> Mass raise BeliefError
 
+pub fn disjunctive(Mass, Mass, budget? : Limits) -> Mass raise BeliefError
+
+pub fn dubois_prade(Mass, Mass, budget? : Limits) -> Mass raise BeliefError
+
 pub fn frame(Array[String]) -> Frame raise BeliefError
 
 pub fn limits(max_focals? : Int, max_pairs? : Int, max_dense_cells? : Int) -> Limits raise BeliefError
@@ -25,6 +29,8 @@ pub fn mixture(Mass, Mass, Double, budget? : Limits) -> Mass raise BeliefError
 pub fn simple_support(Frame, Int, Double, budget? : Limits) -> Mass raise BeliefError
 
 pub fn vacuous(Frame, budget? : Limits) -> Mass raise BeliefError
+
+pub fn yager(Mass, Mass, budget? : Limits) -> Mass raise BeliefError
 
 // Errors
 pub(all) suberror BeliefError {
