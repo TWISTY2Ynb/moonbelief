@@ -1,13 +1,26 @@
 ///|
+#cfg(target="js")
+fn argument_offset() -> Int {
+  2
+}
+
+///|
+#cfg(not(target="js"))
+fn argument_offset() -> Int {
+  1
+}
+
+///|
 fn main {
   let args = @env.args()
-  if args.length() != 2 {
+  let offset = argument_offset()
+  if args.length() != offset + 1 {
     println(
       "{\"schema\":\"moonbelief.error.v1\",\"error\":\"usage: moonbelief JSON_REQUEST\"}",
     )
     return
   }
-  let report = @belief.execute_json(args[1]) catch {
+  let report = @belief.execute_json(args[offset]) catch {
     error => {
       let (kind, message) = match error {
         Invalid(message) => ("invalid", message)
