@@ -81,9 +81,11 @@ pub struct Mass {
 pub fn Mass::belief(Self, Int) -> Double raise BeliefError
 pub fn Mass::commonality(Self, Int) -> Double raise BeliefError
 pub fn Mass::conflict(Self) -> Double
+pub fn Mass::discount(Self, Double, budget? : Limits) -> Self raise BeliefError
 pub fn Mass::entries(Self) -> Array[(Int, Double)]
 pub fn Mass::equal(Self, Self) -> Bool
 pub fn Mass::focal_count(Self) -> Int
+pub fn Mass::forget_detail(Self, budget? : Limits) -> Self raise BeliefError
 pub fn Mass::frame(Self) -> Frame
 pub fn Mass::ignorance(Self) -> Double raise BeliefError
 pub fn Mass::interval(Self, Int) -> (Double, Double) raise BeliefError
