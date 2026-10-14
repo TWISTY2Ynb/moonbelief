@@ -17,6 +17,7 @@ curl --fail --location --retry 2 --header 'If-Match: "65ef1811c0e64c48bf01312100
   '96d30f4dbcc6a9e1736ef26fbdd0e8fb0e97cb01d50e55d2a0072208b8061ae5  core.tar.gz' | sha256sum --check -)
 tar -xzf "$work/moon.tar.gz" -C "$MOON_HOME"
 tar -xzf "$work/core.tar.gz" -C "$MOON_HOME/lib"
+chmod +x "$MOON_HOME/bin/"*
 export PATH="$MOON_HOME/bin:$PATH"
 moon version --all
 moon -C "$MOON_HOME/lib/core" bundle --warn-list -a --all
