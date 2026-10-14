@@ -80,6 +80,9 @@ pub struct Mass {
 } derive(Eq, @debug.Debug)
 pub fn Mass::belief(Self, Int) -> Double raise BeliefError
 pub fn Mass::commonality(Self, Int) -> Double raise BeliefError
+pub fn Mass::condition(Self, Int, min_survival? : Double, budget? : Limits) -> Self raise BeliefError
+pub fn Mass::condition_open(Self, Int, budget? : Limits) -> Self raise BeliefError
+pub fn Mass::conditional_interval(Self, Int, Int, min_survival? : Double, budget? : Limits) -> (Double, Double) raise BeliefError
 pub fn Mass::conflict(Self) -> Double
 pub fn Mass::discount(Self, Double, budget? : Limits) -> Self raise BeliefError
 pub fn Mass::entries(Self) -> Array[(Int, Double)]
