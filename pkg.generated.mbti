@@ -89,6 +89,7 @@ pub struct Frame {
   // private fields
 } derive(Eq, @debug.Debug)
 pub fn Frame::cardinality(Self, Int) -> Int raise BeliefError
+pub fn Frame::coarse_preimage(Self, Self, Array[Int], Int) -> Int raise BeliefError
 pub fn Frame::complement(Self, Int) -> Int raise BeliefError
 pub fn Frame::difference(Self, Int, Int) -> Int raise BeliefError
 pub fn Frame::equal(Self, Self) -> Bool
@@ -130,6 +131,7 @@ pub struct Mass {
 } derive(Eq, @debug.Debug)
 pub fn Mass::belief(Self, Int) -> Double raise BeliefError
 pub fn Mass::belief_table(Self, budget? : Limits) -> Array[Double] raise BeliefError
+pub fn Mass::coarsen(Self, Frame, Array[Int], budget? : Limits) -> Self raise BeliefError
 pub fn Mass::commonality(Self, Int) -> Double raise BeliefError
 pub fn Mass::commonality_table(Self, budget? : Limits) -> Array[Double] raise BeliefError
 pub fn Mass::condition(Self, Int, min_survival? : Double, budget? : Limits) -> Self raise BeliefError
