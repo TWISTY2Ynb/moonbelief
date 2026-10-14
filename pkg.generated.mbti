@@ -130,6 +130,7 @@ pub fn Limits::to_repr(Self) -> @debug.Repr
 pub struct Mass {
   // private fields
 } derive(Eq, @debug.Debug)
+pub fn Mass::align(Self, Frame, budget? : Limits) -> Self raise BeliefError
 pub fn Mass::belief(Self, Int) -> Double raise BeliefError
 pub fn Mass::belief_table(Self, budget? : Limits) -> Array[Double] raise BeliefError
 pub fn Mass::coarsen(Self, Frame, Array[Int], budget? : Limits) -> Self raise BeliefError
@@ -158,6 +159,7 @@ pub fn Mass::pignistic(Self, min_survival? : Double) -> Array[Double] raise Beli
 pub fn Mass::plausibility(Self, Int) -> Double raise BeliefError
 pub fn Mass::ranking(Self, min_survival? : Double) -> Array[HypothesisScore] raise BeliefError
 pub fn Mass::refine(Self, Frame, Array[Int], budget? : Limits) -> Self raise BeliefError
+pub fn Mass::relabel(Self, Array[String], budget? : Limits) -> Self raise BeliefError
 pub fn Mass::survival(Self) -> Double
 pub fn Mass::to_repr(Self) -> @debug.Repr
 pub fn Mass::weight(Self, Int) -> Double raise BeliefError
