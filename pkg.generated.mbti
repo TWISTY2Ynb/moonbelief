@@ -26,6 +26,8 @@ pub fn mass(Frame, Array[(Int, Double)], budget? : Limits) -> Mass raise BeliefE
 
 pub fn mixture(Mass, Mass, Double, budget? : Limits) -> Mass raise BeliefError
 
+pub fn pcr5(Mass, Mass, budget? : Limits) -> Mass raise BeliefError
+
 pub fn simple_support(Frame, Int, Double, budget? : Limits) -> Mass raise BeliefError
 
 pub fn vacuous(Frame, budget? : Limits) -> Mass raise BeliefError
