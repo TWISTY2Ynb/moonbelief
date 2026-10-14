@@ -20,13 +20,19 @@ pub fn disjunctive(Mass, Mass, budget? : Limits) -> Mass raise BeliefError
 
 pub fn dubois_prade(Mass, Mass, budget? : Limits) -> Mass raise BeliefError
 
+pub fn focal_total_variation(Mass, Mass, budget? : Limits) -> Double raise BeliefError
+
 pub fn frame(Array[String]) -> Frame raise BeliefError
 
 pub fn from_commonality(Frame, Array[Double], budget? : Limits) -> Mass raise BeliefError
 
+pub fn jousselme(Mass, Mass, budget? : Limits) -> Double raise BeliefError
+
 pub fn limits(max_focals? : Int, max_pairs? : Int, max_dense_cells? : Int) -> Limits raise BeliefError
 
 pub fn mass(Frame, Array[(Int, Double)], budget? : Limits) -> Mass raise BeliefError
+
+pub fn maximum_belief_difference(Mass, Mass, budget? : Limits) -> (Int, Double) raise BeliefError
 
 pub fn mixture(Mass, Mass, Double, budget? : Limits) -> Mass raise BeliefError
 
