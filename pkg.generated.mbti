@@ -8,6 +8,8 @@ import {
 // Values
 pub fn bayesian(Frame, Array[Double], budget? : Limits) -> Mass raise BeliefError
 
+pub fn conjunctive(Mass, Mass, budget? : Limits) -> Mass raise BeliefError
+
 pub fn default_limits() -> Limits
 
 pub fn frame(Array[String]) -> Frame raise BeliefError
