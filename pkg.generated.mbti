@@ -6,6 +6,8 @@ import {
 }
 
 // Values
+pub fn bayesian(Frame, Array[Double], budget? : Limits) -> Mass raise BeliefError
+
 pub fn default_limits() -> Limits
 
 pub fn frame(Array[String]) -> Frame raise BeliefError
@@ -13,6 +15,12 @@ pub fn frame(Array[String]) -> Frame raise BeliefError
 pub fn limits(max_focals? : Int, max_pairs? : Int, max_dense_cells? : Int) -> Limits raise BeliefError
 
 pub fn mass(Frame, Array[(Int, Double)], budget? : Limits) -> Mass raise BeliefError
+
+pub fn mixture(Mass, Mass, Double, budget? : Limits) -> Mass raise BeliefError
+
+pub fn simple_support(Frame, Int, Double, budget? : Limits) -> Mass raise BeliefError
+
+pub fn vacuous(Frame, budget? : Limits) -> Mass raise BeliefError
 
 // Errors
 pub(all) suberror BeliefError {
