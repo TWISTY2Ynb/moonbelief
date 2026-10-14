@@ -5,8 +5,8 @@
 pub fn Mass::refine(
   self : Mass,
   target : Frame,
-  blocks : Array[Int],
-  budget? : Limits = default_limits(),
+  blocks : Array[Int32],
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   if blocks.length() != self.domain.size() {
     raise Invalid("refinement requires one block per source hypothesis")
@@ -42,8 +42,8 @@ pub fn Mass::refine(
 pub fn Frame::refinement_inverse(
   self : Frame,
   target : Frame,
-  blocks : Array[Int],
-) -> Array[Int] raise BeliefError {
+  blocks : Array[Int32],
+) -> Array[Int32] raise BeliefError {
   let _ = vacuous(self).refine(target, blocks)
   let result = Array::make(target.size(), 0)
   for coarse = 0; coarse < blocks.length(); coarse = coarse + 1 {

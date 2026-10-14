@@ -13,9 +13,9 @@ pub extend DecisionPolicy with Eq::{equal, not_equal}
 
 ///|
 pub fn decision_policy(
-  max_conflict? : Double = 0.5,
-  max_nonspecific? : Double = 0.8,
-  min_margin? : Double = 0.05,
+  max_conflict~ : Double = 0.5,
+  max_nonspecific~ : Double = 0.8,
+  min_margin~ : Double = 0.05,
 ) -> DecisionPolicy raise BeliefError {
   if !finite(max_conflict) ||
     max_conflict < 0.0 ||
@@ -38,7 +38,7 @@ pub fn decision_policy(
 
 ///|
 pub struct ActionDecision {
-  index : Int
+  index : Int32
   label : String
   expected_score : Double
   margin : Double

@@ -19,7 +19,7 @@ pub fn fuse(
   a : Mass,
   b : Mass,
   rule : Rule,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   match rule {
     Conjunctive => conjunctive(a, b, budget~)
@@ -48,7 +48,7 @@ pub extend Source with Eq::{equal, not_equal}
 pub fn source(
   name : String,
   evidence : Mass,
-  reliability? : Double = 1.0,
+  reliability~ : Double = 1.0,
 ) -> Source raise BeliefError {
   if name.length() == 0 || name.length() > 256 {
     raise Invalid("source name must have 1..256 characters")
@@ -77,7 +77,7 @@ pub struct FusionStep {
   conjunctive_conflict : Double
   output_conflict : Double
   output_ignorance : Double
-  output_focals : Int
+  output_focals : Int32
 } derive(Debug, Eq)
 
 ///|
@@ -90,7 +90,7 @@ pub extend FusionStep with Eq::{equal, not_equal}
 pub struct PipelineResult {
   priv evidence : Mass
   priv trace : Array[FusionStep]
-  priv pair_work : Int
+  priv pair_work : Int32
 } derive(Debug, Eq)
 
 ///|
@@ -110,7 +110,7 @@ pub fn PipelineResult::steps(self : PipelineResult) -> Array[FusionStep] {
 }
 
 ///|
-pub fn PipelineResult::pair_work(self : PipelineResult) -> Int {
+pub fn PipelineResult::pair_work(self : PipelineResult) -> Int32 {
   self.pair_work
 }
 
@@ -136,7 +136,7 @@ fn validate_sources(sources : Array[Source]) -> Unit raise BeliefError {
 pub fn pipeline(
   sources : Array[Source],
   rule : Rule,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> PipelineResult raise BeliefError {
   validate_sources(sources)
   let mut current = sources[0].evidence.discount(

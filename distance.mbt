@@ -1,5 +1,5 @@
 ///|
-fn jaccard_kernel(a : Int, b : Int) -> Double {
+fn jaccard_kernel(a : Int32, b : Int32) -> Double {
   let union = a | b
   if union == 0 {
     1.0
@@ -14,12 +14,12 @@ fn jaccard_kernel(a : Int, b : Int) -> Double {
 pub fn jousselme(
   a : Mass,
   b : Mass,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Double raise BeliefError {
   same_frame(a, b)
   let left = a.dense(budget~)
   let right = b.dense(budget~)
-  let differences : Array[(Int, Double)] = []
+  let differences : Array[(Int32, Double)] = []
   for mask = 0; mask < left.length(); mask = mask + 1 {
     let delta = left[mask] - right[mask]
     if delta != 0.0 {
@@ -57,7 +57,7 @@ pub fn jousselme(
 pub fn focal_total_variation(
   a : Mass,
   b : Mass,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Double raise BeliefError {
   same_frame(a, b)
   let left = a.dense(budget~)
@@ -74,8 +74,8 @@ pub fn focal_total_variation(
 pub fn maximum_belief_difference(
   a : Mass,
   b : Mass,
-  budget? : Limits = default_limits(),
-) -> (Int, Double) raise BeliefError {
+  budget~ : Limits = default_limits(),
+) -> (Int32, Double) raise BeliefError {
   same_frame(a, b)
   let left = a.belief_table(budget~)
   let right = b.belief_table(budget~)

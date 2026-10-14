@@ -15,7 +15,7 @@ pub extend SourceSensitivity with @debug.Debug::{to_repr}
 pub extend SourceSensitivity with Eq::{equal, not_equal}
 
 ///|
-fn maximum_index(values : Array[Double]) -> Int {
+fn maximum_index(values : Array[Double]) -> Int32 {
   let mut best = 0
   for i = 1; i < values.length(); i = i + 1 {
     if values[i] > values[best] {
@@ -32,7 +32,7 @@ fn maximum_index(values : Array[Double]) -> Int {
 pub fn leave_one_out(
   sources : Array[Source],
   rule : Rule,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Array[SourceSensitivity] raise BeliefError {
   if sources.length() < 2 || sources.length() > 16 {
     raise Invalid("leave-one-out requires 2..16 sources")

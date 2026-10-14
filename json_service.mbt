@@ -142,7 +142,7 @@ fn encode_decision(m : Mass, value : Json) -> Json raise BeliefError {
 /// Total conflict produces a domain error instead of invalid ranking numbers.
 pub fn execute_request(
   value : Json,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Json raise BeliefError {
   let object = json_object(value, [
     "schema", "frame", "rule", "sources", "queries", "decision",
@@ -178,7 +178,7 @@ pub fn execute_request(
 ///|
 pub fn execute_json(
   text : String,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> String raise BeliefError {
   execute_request(bounded_parse(text), budget~).stringify()
 }

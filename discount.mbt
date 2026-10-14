@@ -5,7 +5,7 @@
 pub fn Mass::discount(
   self : Mass,
   reliability : Double,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   if !finite(reliability) || reliability < 0.0 || reliability > 1.0 {
     raise Invalid("reliability must be finite and in [0,1]")
@@ -25,7 +25,7 @@ pub fn Mass::discount(
 /// Conflict and singleton commitments are retained; no hidden pruning occurs.
 pub fn Mass::forget_detail(
   self : Mass,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   budget.check_dense(self.domain)
   let bins = Array::make(self.domain.universe() + 1, 0.0)

@@ -3,12 +3,12 @@
 pub fn Mass::align(
   self : Mass,
   target : Frame,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   if target.size() != self.domain.size() {
     raise FrameMismatch
   }
-  let mapping : Array[Int] = []
+  let mapping : Array[Int32] = []
   for name in self.domain.names {
     let mut position = -1
     for i = 0; i < target.size(); i = i + 1 {
@@ -31,7 +31,7 @@ pub fn Mass::align(
 pub fn Mass::relabel(
   self : Mass,
   names : Array[String],
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   let target = frame(names)
   if target.size() != self.domain.size() {

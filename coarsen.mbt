@@ -4,8 +4,8 @@
 pub fn Mass::coarsen(
   self : Mass,
   target : Frame,
-  mapping : Array[Int],
-  budget? : Limits = default_limits(),
+  mapping : Array[Int32],
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   if mapping.length() != self.domain.size() {
     raise Invalid("coarsening map must have one index per source hypothesis")
@@ -46,9 +46,9 @@ pub fn Mass::coarsen(
 pub fn Frame::coarse_preimage(
   self : Frame,
   target : Frame,
-  mapping : Array[Int],
-  event : Int,
-) -> Int raise BeliefError {
+  mapping : Array[Int32],
+  event : Int32,
+) -> Int32 raise BeliefError {
   target.check_mask(event)
   // Reuse exactly the same coverage and index checks as mass projection.
   let _ = vacuous(self).coarsen(target, mapping)

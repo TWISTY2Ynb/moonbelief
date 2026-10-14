@@ -3,8 +3,8 @@
 /// An impossible/empty observation is rejected rather than fabricated.
 pub fn Mass::condition_open(
   self : Mass,
-  event : Int,
-  budget? : Limits = default_limits(),
+  event : Int32,
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   self.domain.check_mask(event)
   if event == 0 {
@@ -27,9 +27,9 @@ pub fn Mass::condition_open(
 /// Closed-world conditioning uses the same near-total-conflict gate as Dempster.
 pub fn Mass::condition(
   self : Mass,
-  event : Int,
-  min_survival? : Double = 1.0e-12,
-  budget? : Limits = default_limits(),
+  event : Int32,
+  min_survival~ : Double = 1.0e-12,
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   check_survival_threshold(min_survival)
   self.condition_open(event, budget~).normalize(min_survival~, budget~)
@@ -39,10 +39,10 @@ pub fn Mass::condition(
 /// Conditional belief/plausibility bounds, not a posterior probability vector.
 pub fn Mass::conditional_interval(
   self : Mass,
-  query : Int,
-  given : Int,
-  min_survival? : Double = 1.0e-12,
-  budget? : Limits = default_limits(),
+  query : Int32,
+  given : Int32,
+  min_survival~ : Double = 1.0e-12,
+  budget~ : Limits = default_limits(),
 ) -> (Double, Double) raise BeliefError {
   self.domain.check_mask(query)
   self.condition(given, min_survival~, budget~).interval(query)

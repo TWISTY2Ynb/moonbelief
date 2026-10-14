@@ -29,12 +29,12 @@ pub fn Frame::labels(self : Frame) -> Array[String] {
 }
 
 ///|
-pub fn Frame::size(self : Frame) -> Int {
+pub fn Frame::size(self : Frame) -> Int32 {
   self.names.length()
 }
 
 ///|
-pub fn Frame::universe(self : Frame) -> Int {
+pub fn Frame::universe(self : Frame) -> Int32 {
   (1 << self.names.length()) - 1
 }
 
@@ -42,7 +42,7 @@ pub fn Frame::universe(self : Frame) -> Int {
 pub fn Frame::subset(
   self : Frame,
   labels : Array[String],
-) -> Int raise BeliefError {
+) -> Int32 raise BeliefError {
   let mut mask = 0
   for label in labels {
     let mut found = false
@@ -67,7 +67,7 @@ pub fn Frame::subset(
 ///|
 pub fn Frame::members(
   self : Frame,
-  mask : Int,
+  mask : Int32,
 ) -> Array[String] raise BeliefError {
   self.check_mask(mask)
   let result : Array[String] = []
@@ -80,7 +80,7 @@ pub fn Frame::members(
 }
 
 ///|
-fn Frame::check_mask(self : Frame, mask : Int) -> Unit raise BeliefError {
+fn Frame::check_mask(self : Frame, mask : Int32) -> Unit raise BeliefError {
   if mask < 0 || mask > self.universe() {
     raise Invalid("subset outside frame")
   }

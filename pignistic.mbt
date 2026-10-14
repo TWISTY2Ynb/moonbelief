@@ -3,7 +3,7 @@
 /// Conflict is removed by conditioning on directly summed nonempty mass.
 pub fn Mass::pignistic(
   self : Mass,
-  min_survival? : Double = 1.0e-12,
+  min_survival~ : Double = 1.0e-12,
 ) -> Array[Double] raise BeliefError {
   check_survival_threshold(min_survival)
   let surviving = self.survival()
@@ -30,7 +30,7 @@ pub fn Mass::pignistic(
 
 ///|
 pub struct HypothesisScore {
-  index : Int
+  index : Int32
   label : String
   belief : Double
   plausibility : Double
@@ -48,7 +48,7 @@ pub extend HypothesisScore with Eq::{equal, not_equal}
 /// Belief and plausibility columns remain unnormalized open-world bounds.
 pub fn Mass::ranking(
   self : Mass,
-  min_survival? : Double = 1.0e-12,
+  min_survival~ : Double = 1.0e-12,
 ) -> Array[HypothesisScore] raise BeliefError {
   let probabilities = self.pignistic(min_survival~)
   let result : Array[HypothesisScore] = []

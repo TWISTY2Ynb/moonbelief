@@ -1,5 +1,5 @@
 ///|
-fn cardinality(mask : Int) -> Int {
+fn cardinality(mask : Int32) -> Int32 {
   let mut bits = mask
   let mut count = 0
   while bits != 0 {
@@ -10,13 +10,16 @@ fn cardinality(mask : Int) -> Int {
 }
 
 ///|
-pub fn Frame::cardinality(self : Frame, mask : Int) -> Int raise BeliefError {
+pub fn Frame::cardinality(
+  self : Frame,
+  mask : Int32,
+) -> Int32 raise BeliefError {
   self.check_mask(mask)
   cardinality(mask)
 }
 
 ///|
-pub fn Frame::complement(self : Frame, mask : Int) -> Int raise BeliefError {
+pub fn Frame::complement(self : Frame, mask : Int32) -> Int32 raise BeliefError {
   self.check_mask(mask)
   self.universe() ^ mask
 }
@@ -24,9 +27,9 @@ pub fn Frame::complement(self : Frame, mask : Int) -> Int raise BeliefError {
 ///|
 pub fn Frame::intersection(
   self : Frame,
-  left : Int,
-  right : Int,
-) -> Int raise BeliefError {
+  left : Int32,
+  right : Int32,
+) -> Int32 raise BeliefError {
   self.check_mask(left)
   self.check_mask(right)
   left & right
@@ -35,9 +38,9 @@ pub fn Frame::intersection(
 ///|
 pub fn Frame::union(
   self : Frame,
-  left : Int,
-  right : Int,
-) -> Int raise BeliefError {
+  left : Int32,
+  right : Int32,
+) -> Int32 raise BeliefError {
   self.check_mask(left)
   self.check_mask(right)
   left | right
@@ -46,9 +49,9 @@ pub fn Frame::union(
 ///|
 pub fn Frame::difference(
   self : Frame,
-  left : Int,
-  right : Int,
-) -> Int raise BeliefError {
+  left : Int32,
+  right : Int32,
+) -> Int32 raise BeliefError {
   self.check_mask(left)
   self.check_mask(right)
   left & (self.universe() ^ right)
@@ -57,8 +60,8 @@ pub fn Frame::difference(
 ///|
 pub fn Frame::is_subset(
   self : Frame,
-  left : Int,
-  right : Int,
+  left : Int32,
+  right : Int32,
 ) -> Bool raise BeliefError {
   self.check_mask(left)
   self.check_mask(right)
@@ -69,15 +72,15 @@ pub fn Frame::is_subset(
 /// Enumerate subsets of a query, not of an implicitly unbounded universe.
 pub fn Frame::subsets(
   self : Frame,
-  mask : Int,
-  max_results? : Int = 65536,
-) -> Array[Int] raise BeliefError {
+  mask : Int32,
+  max_results~ : Int32 = 65536,
+) -> Array[Int32] raise BeliefError {
   self.check_mask(mask)
   let count = 1 << cardinality(mask)
   if max_results < 1 || count > max_results {
     raise Budget("subset enumeration exceeds output budget")
   }
-  let result : Array[Int] = []
+  let result : Array[Int32] = []
   let mut current = mask
   while true {
     result.push(current)

@@ -1,9 +1,9 @@
 ///|
 /// Limits can tighten, never increase, the engine's hard resource ceilings.
 pub struct Limits {
-  priv focals : Int
-  priv pairs : Int
-  priv dense : Int
+  priv focals : Int32
+  priv pairs : Int32
+  priv dense : Int32
 } derive(Debug, Eq)
 
 ///|
@@ -14,9 +14,9 @@ pub extend Limits with Eq::{equal, not_equal}
 
 ///|
 pub fn limits(
-  max_focals? : Int = 4096,
-  max_pairs? : Int = 1000000,
-  max_dense_cells? : Int = 65536,
+  max_focals~ : Int32 = 4096,
+  max_pairs~ : Int32 = 1000000,
+  max_dense_cells~ : Int32 = 65536,
 ) -> Limits raise BeliefError {
   if max_focals < 1 ||
     max_focals > 4096 ||
@@ -35,17 +35,17 @@ pub fn default_limits() -> Limits {
 }
 
 ///|
-pub fn Limits::max_focals(self : Limits) -> Int {
+pub fn Limits::max_focals(self : Limits) -> Int32 {
   self.focals
 }
 
 ///|
-pub fn Limits::max_pairs(self : Limits) -> Int {
+pub fn Limits::max_pairs(self : Limits) -> Int32 {
   self.pairs
 }
 
 ///|
-pub fn Limits::max_dense_cells(self : Limits) -> Int {
+pub fn Limits::max_dense_cells(self : Limits) -> Int32 {
   self.dense
 }
 

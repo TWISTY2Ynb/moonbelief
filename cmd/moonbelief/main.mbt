@@ -1,12 +1,12 @@
 ///|
 #cfg(target="js")
-fn argument_offset() -> Int {
+fn argument_offset() -> Int32 {
   2
 }
 
 ///|
 #cfg(not(target="js"))
-fn argument_offset() -> Int {
+fn argument_offset() -> Int32 {
   1
 }
 

@@ -2,7 +2,7 @@
 /// A copy of mass values in integer-mask order, including empty set at index 0.
 pub fn Mass::dense(
   self : Mass,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Array[Double] raise BeliefError {
   budget.check_dense(self.domain)
   let result = Array::make(self.domain.universe() + 1, 0.0)
@@ -58,7 +58,7 @@ fn lattice_transform(
 pub fn subset_zeta(
   f : Frame,
   values : Array[Double],
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Array[Double] raise BeliefError {
   lattice_transform(f, values, false, false, budget)
 }
@@ -67,7 +67,7 @@ pub fn subset_zeta(
 pub fn subset_mobius(
   f : Frame,
   values : Array[Double],
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Array[Double] raise BeliefError {
   lattice_transform(f, values, true, false, budget)
 }
@@ -76,7 +76,7 @@ pub fn subset_mobius(
 pub fn superset_zeta(
   f : Frame,
   values : Array[Double],
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Array[Double] raise BeliefError {
   lattice_transform(f, values, false, true, budget)
 }
@@ -85,7 +85,7 @@ pub fn superset_zeta(
 pub fn superset_mobius(
   f : Frame,
   values : Array[Double],
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Array[Double] raise BeliefError {
   lattice_transform(f, values, true, true, budget)
 }
@@ -93,7 +93,7 @@ pub fn superset_mobius(
 ///|
 pub fn Mass::belief_table(
   self : Mass,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Array[Double] raise BeliefError {
   let result = subset_zeta(self.domain, self.dense(budget~), budget~)
   let conflict = self.conflict()
@@ -106,7 +106,7 @@ pub fn Mass::belief_table(
 ///|
 pub fn Mass::commonality_table(
   self : Mass,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Array[Double] raise BeliefError {
   superset_zeta(self.domain, self.dense(budget~), budget~)
 }
@@ -117,10 +117,10 @@ pub fn Mass::commonality_table(
 pub fn from_commonality(
   f : Frame,
   values : Array[Double],
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   let bins = superset_mobius(f, values, budget~)
-  let entries : Array[(Int, Double)] = []
+  let entries : Array[(Int32, Double)] = []
   for mask = 0; mask < bins.length(); mask = mask + 1 {
     let value = bins[mask]
     if value < -1.0e-12 || value > 1.0 + 1.0e-12 {

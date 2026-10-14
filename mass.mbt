@@ -2,7 +2,7 @@
 /// Sparse canonical mass assignment; empty-set mass is retained explicitly.
 pub struct Mass {
   priv domain : Frame
-  priv focals : Array[(Int, Double)]
+  priv focals : Array[(Int32, Double)]
 } derive(Debug, Eq)
 
 ///|
@@ -43,8 +43,8 @@ fn stable_sum(values : Array[Double]) -> Double {
 /// Tiny positive focals are preserved, not pruned by a hidden threshold.
 pub fn mass(
   f : Frame,
-  entries : Array[(Int, Double)],
-  budget? : Limits = default_limits(),
+  entries : Array[(Int32, Double)],
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   budget.check_dense(f)
   if entries.length() == 0 {
@@ -86,7 +86,7 @@ fn from_bins(
   if !finite(total) || total <= 0.0 {
     raise Invalid("mass has no finite positive total")
   }
-  let result : Array[(Int, Double)] = []
+  let result : Array[(Int32, Double)] = []
   for mask = 0; mask < bins.length(); mask = mask + 1 {
     let value = bins[mask]
     if !finite(value) || value < 0.0 {
@@ -108,17 +108,17 @@ pub fn Mass::frame(self : Mass) -> Frame {
 }
 
 ///|
-pub fn Mass::entries(self : Mass) -> Array[(Int, Double)] {
+pub fn Mass::entries(self : Mass) -> Array[(Int32, Double)] {
   self.focals.copy()
 }
 
 ///|
-pub fn Mass::focal_count(self : Mass) -> Int {
+pub fn Mass::focal_count(self : Mass) -> Int32 {
   self.focals.length()
 }
 
 ///|
-pub fn Mass::weight(self : Mass, mask : Int) -> Double raise BeliefError {
+pub fn Mass::weight(self : Mass, mask : Int32) -> Double raise BeliefError {
   self.domain.check_mask(mask)
   for (subset, value) in self.focals {
     if subset == mask {

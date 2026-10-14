@@ -103,7 +103,7 @@ python scripts/differential.py
 python scripts/audit.py
 ```
 
-CI 在 Linux 上分别检查/测试/构建 wasm-gc、wasm、js、native，并对三个例子断言输出。工具链下载带 ETag 与 SHA-256 校验，见 [CI 安装脚本](scripts/install-ci-toolchain.sh)。本地 Windows 已运行 wasm-gc/wasm/js；native 本地只有严格 check，缺少 C 编译器，不声称本地 native 执行成功。
+验证工具链为 Moon 0.1.20261012 / moonc v0.10.15+943464bfa（2026-10-12）；源码与 CI 使用同一版本的规范格式。CI 在 Linux 上分别检查/测试/构建 wasm-gc、wasm、js、native，并对三个例子断言输出。工具链下载带 ETag 与 SHA-256 校验，见 [CI 安装脚本](scripts/install-ci-toolchain.sh)。本地 Windows 已运行 wasm-gc/wasm/js；native 本地只有严格 check，缺少 C 编译器，不声称本地 native 执行成功。
 
 测试不是覆盖率数字：35 个 test 声明中包含 13,475 个双源规则枚举结果，以及边界、可变别名、变换与顺序测试；另有 72 个经实际 CLI 的有理数差分案例。具体口径见 [验证说明](docs/competition/verification.md)。
 

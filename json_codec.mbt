@@ -52,7 +52,7 @@ fn json_number(value : Json) -> Double raise BeliefError {
 }
 
 ///|
-fn json_array(value : Json, maximum : Int) -> Array[Json] raise BeliefError {
+fn json_array(value : Json, maximum : Int32) -> Array[Json] raise BeliefError {
   match value {
     Array(values) => {
       if values.length() > maximum {
@@ -65,7 +65,10 @@ fn json_array(value : Json, maximum : Int) -> Array[Json] raise BeliefError {
 }
 
 ///|
-fn json_strings(value : Json, maximum : Int) -> Array[String] raise BeliefError {
+fn json_strings(
+  value : Json,
+  maximum : Int32,
+) -> Array[String] raise BeliefError {
   let values = json_array(value, maximum)
   let result : Array[String] = []
   for item in values {
@@ -119,7 +122,7 @@ fn decode_rows(
   budget : Limits,
 ) -> Mass raise BeliefError {
   let rows = json_array(value, budget.focals)
-  let entries : Array[(Int, Double)] = []
+  let entries : Array[(Int32, Double)] = []
   for row in rows {
     let object = json_object(row, ["subset", "mass"])
     let labels = json_strings(required(object, "subset"), 16)
@@ -152,7 +155,7 @@ fn encode_rows(m : Mass) -> Json raise BeliefError {
 ///|
 pub fn mass_from_json(
   value : Json,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   let object = json_object(value, ["schema", "frame", "masses"])
   if json_string(required(object, "schema")) != "moonbelief.mass.v1" {
@@ -165,7 +168,7 @@ pub fn mass_from_json(
 ///|
 pub fn parse_mass(
   text : String,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   mass_from_json(bounded_parse(text), budget~)
 }

@@ -4,7 +4,7 @@
 pub fn disjunctive(
   a : Mass,
   b : Mass,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   pair_budget(a, b, budget)
   let bins = Array::make(a.domain.universe() + 1, 0.0)
@@ -26,7 +26,7 @@ pub fn disjunctive(
 pub fn yager(
   a : Mass,
   b : Mass,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   let c = conjunctive(a, b, budget~)
   let bins = Array::make(a.domain.universe() + 1, 0.0)
@@ -46,7 +46,7 @@ pub fn yager(
 pub fn dubois_prade(
   a : Mass,
   b : Mass,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   pair_budget(a, b, budget)
   let bins = Array::make(a.domain.universe() + 1, 0.0)

@@ -1,7 +1,7 @@
 ///|
 // Independent test oracle uses explicit per-hypothesis membership rather than
 // the production pair-target helpers or production lattice transforms.
-fn reference_target(a : Int, b : Int, intersection : Bool) -> Int {
+fn reference_target(a : Int32, b : Int32, intersection : Bool) -> Int32 {
   let mut result = 0
   for hypothesis = 0; hypothesis < 3; hypothesis = hypothesis + 1 {
     let flag = 1 << hypothesis
@@ -61,7 +61,7 @@ fn reference_rule(a : Mass, b : Mass, rule : Rule) -> Array[Double] {
 ///|
 fn quarter_masses(
   f : Frame,
-  masks : Array[Int],
+  masks : Array[Int32],
 ) -> Array[Mass] raise BeliefError {
   let result : Array[Mass] = []
   for a = 0; a <= 4; a = a + 1 {

@@ -1,6 +1,6 @@
 ///|
 /// Sum of nonempty focal masses included in the event (unnormalized TBM).
-pub fn Mass::belief(self : Mass, event : Int) -> Double raise BeliefError {
+pub fn Mass::belief(self : Mass, event : Int32) -> Double raise BeliefError {
   self.domain.check_mask(event)
   let values : Array[Double] = []
   for (mask, value) in self.focals {
@@ -13,7 +13,10 @@ pub fn Mass::belief(self : Mass, event : Int) -> Double raise BeliefError {
 
 ///|
 /// Sum of masses intersecting the event; empty-set conflict contributes zero.
-pub fn Mass::plausibility(self : Mass, event : Int) -> Double raise BeliefError {
+pub fn Mass::plausibility(
+  self : Mass,
+  event : Int32,
+) -> Double raise BeliefError {
   self.domain.check_mask(event)
   let values : Array[Double] = []
   for (mask, value) in self.focals {
@@ -26,7 +29,10 @@ pub fn Mass::plausibility(self : Mass, event : Int) -> Double raise BeliefError 
 
 ///|
 /// Commonality includes empty-set mass only when event is empty.
-pub fn Mass::commonality(self : Mass, event : Int) -> Double raise BeliefError {
+pub fn Mass::commonality(
+  self : Mass,
+  event : Int32,
+) -> Double raise BeliefError {
   self.domain.check_mask(event)
   let values : Array[Double] = []
   for (mask, value) in self.focals {
@@ -40,7 +46,7 @@ pub fn Mass::commonality(self : Mass, event : Int) -> Double raise BeliefError {
 ///|
 pub fn Mass::interval(
   self : Mass,
-  event : Int,
+  event : Int32,
 ) -> (Double, Double) raise BeliefError {
   (self.belief(event), self.plausibility(event))
 }

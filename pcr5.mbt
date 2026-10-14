@@ -5,7 +5,7 @@
 pub fn pcr5(
   a : Mass,
   b : Mass,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   pair_budget(a, b, budget)
   if a.conflict() > 0.0 || b.conflict() > 0.0 {

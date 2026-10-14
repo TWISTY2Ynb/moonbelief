@@ -10,8 +10,8 @@ fn check_survival_threshold(min_survival : Double) -> Unit raise BeliefError {
 /// Summing surviving focals directly avoids catastrophic 1-conflict cancellation.
 pub fn Mass::normalize(
   self : Mass,
-  min_survival? : Double = 1.0e-12,
-  budget? : Limits = default_limits(),
+  min_survival~ : Double = 1.0e-12,
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   check_survival_threshold(min_survival)
   budget.check_dense(self.domain)
@@ -33,8 +33,8 @@ pub fn Mass::normalize(
 pub fn dempster(
   a : Mass,
   b : Mass,
-  min_survival? : Double = 1.0e-12,
-  budget? : Limits = default_limits(),
+  min_survival~ : Double = 1.0e-12,
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   check_survival_threshold(min_survival)
   conjunctive(a, b, budget~).normalize(min_survival~, budget~)

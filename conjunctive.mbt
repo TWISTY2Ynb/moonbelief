@@ -13,7 +13,7 @@ fn pair_budget(a : Mass, b : Mass, budget : Limits) -> Unit raise BeliefError {
 pub fn conjunctive(
   a : Mass,
   b : Mass,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   pair_budget(a, b, budget)
   let bins = Array::make(a.domain.universe() + 1, 0.0)

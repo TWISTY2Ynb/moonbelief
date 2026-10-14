@@ -1,7 +1,7 @@
 ///|
 pub fn vacuous(
   f : Frame,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   mass(f, [(f.universe(), 1.0)], budget~)
 }
@@ -10,9 +10,9 @@ pub fn vacuous(
 /// Simple support does not silently create empty-set conflict.
 pub fn simple_support(
   f : Frame,
-  event : Int,
+  event : Int32,
   support : Double,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   f.check_mask(event)
   if event == 0 || !finite(support) || support < 0.0 || support > 1.0 {
@@ -28,12 +28,12 @@ pub fn simple_support(
 pub fn bayesian(
   f : Frame,
   probabilities : Array[Double],
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   if probabilities.length() != f.size() {
     raise Invalid("probability vector must match frame size")
   }
-  let entries : Array[(Int, Double)] = []
+  let entries : Array[(Int32, Double)] = []
   for i = 0; i < probabilities.length(); i = i + 1 {
     entries.push((1 << i, probabilities[i]))
   }
@@ -54,7 +54,7 @@ pub fn mixture(
   a : Mass,
   b : Mass,
   alpha : Double,
-  budget? : Limits = default_limits(),
+  budget~ : Limits = default_limits(),
 ) -> Mass raise BeliefError {
   same_frame(a, b)
   if !finite(alpha) || alpha < 0.0 || alpha > 1.0 {
