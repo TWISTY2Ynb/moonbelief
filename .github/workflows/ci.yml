@@ -1,0 +1,39 @@
+name: verified-targets
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  target:
+    name: ${{ matrix.target }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [wasm-gc, wasm, js, native]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install integrity-pinned official MoonBit snapshot
+        run: bash scripts/install-ci-toolchain.sh
+      - name: Regenerate interface and verify formatting
+        run: |
+          moon info
+          moon fmt
+          git diff --exit-code
+          moon fmt --check
+      - run: moon check --deny-warn --target ${{ matrix.target }}
+      - run: moon test --deny-warn --target ${{ matrix.target }}
+      - run: moon build --deny-warn --target ${{ matrix.target }}
+      - run: python scripts/check_examples.py --target ${{ matrix.target }}
+      - name: Exact-rational protocol differential and engineering inventory
+        if: matrix.target == 'wasm-gc'
+        run: |
+          python scripts/differential.py
+          python scripts/audit.py

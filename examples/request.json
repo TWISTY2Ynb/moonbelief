@@ -1,0 +1,33 @@
+{
+  "schema": "moonbelief.request.v1",
+  "frame": [
+    "a",
+    "b"
+  ],
+  "rule": "yager",
+  "sources": [
+    {
+      "name": "sensor",
+      "masses": [
+        {
+          "subset": [
+            "a"
+          ],
+          "mass": 0.7
+        },
+        {
+          "subset": [
+            "a",
+            "b"
+          ],
+          "mass": 0.3
+        }
+      ]
+    }
+  ],
+  "queries": [
+    [
+      "a"
+    ]
+  ]
+}
