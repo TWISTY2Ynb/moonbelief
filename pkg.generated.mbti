@@ -98,6 +98,7 @@ pub fn Frame::is_subset(Self, Int, Int) -> Bool raise BeliefError
 pub fn Frame::labels(Self) -> Array[String]
 pub fn Frame::members(Self, Int) -> Array[String] raise BeliefError
 pub fn Frame::not_equal(Self, Self) -> Bool
+pub fn Frame::refinement_inverse(Self, Self, Array[Int]) -> Array[Int] raise BeliefError
 pub fn Frame::size(Self) -> Int
 pub fn Frame::subset(Self, Array[String]) -> Int raise BeliefError
 pub fn Frame::subsets(Self, Int, max_results? : Int) -> Array[Int] raise BeliefError
@@ -156,6 +157,7 @@ pub fn Mass::not_equal(Self, Self) -> Bool
 pub fn Mass::pignistic(Self, min_survival? : Double) -> Array[Double] raise BeliefError
 pub fn Mass::plausibility(Self, Int) -> Double raise BeliefError
 pub fn Mass::ranking(Self, min_survival? : Double) -> Array[HypothesisScore] raise BeliefError
+pub fn Mass::refine(Self, Frame, Array[Int], budget? : Limits) -> Self raise BeliefError
 pub fn Mass::survival(Self) -> Double
 pub fn Mass::to_repr(Self) -> @debug.Repr
 pub fn Mass::weight(Self, Int) -> Double raise BeliefError
