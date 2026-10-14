@@ -23,13 +23,20 @@ pub fn BeliefError::to_repr(Self) -> @debug.Repr
 pub struct Frame {
   // private fields
 } derive(Eq, @debug.Debug)
+pub fn Frame::cardinality(Self, Int) -> Int raise BeliefError
+pub fn Frame::complement(Self, Int) -> Int raise BeliefError
+pub fn Frame::difference(Self, Int, Int) -> Int raise BeliefError
 pub fn Frame::equal(Self, Self) -> Bool
+pub fn Frame::intersection(Self, Int, Int) -> Int raise BeliefError
+pub fn Frame::is_subset(Self, Int, Int) -> Bool raise BeliefError
 pub fn Frame::labels(Self) -> Array[String]
 pub fn Frame::members(Self, Int) -> Array[String] raise BeliefError
 pub fn Frame::not_equal(Self, Self) -> Bool
 pub fn Frame::size(Self) -> Int
 pub fn Frame::subset(Self, Array[String]) -> Int raise BeliefError
+pub fn Frame::subsets(Self, Int, max_results? : Int) -> Array[Int] raise BeliefError
 pub fn Frame::to_repr(Self) -> @debug.Repr
+pub fn Frame::union(Self, Int, Int) -> Int raise BeliefError
 pub fn Frame::universe(Self) -> Int
 
 // Type aliases
