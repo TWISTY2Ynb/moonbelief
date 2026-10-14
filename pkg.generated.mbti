@@ -30,6 +30,8 @@ pub fn fuse(Mass, Mass, Rule, budget? : Limits) -> Mass raise BeliefError
 
 pub fn jousselme(Mass, Mass, budget? : Limits) -> Double raise BeliefError
 
+pub fn leave_one_out(Array[Source], Rule, budget? : Limits) -> Array[SourceSensitivity] raise BeliefError
+
 pub fn limits(max_focals? : Int, max_pairs? : Int, max_dense_cells? : Int) -> Limits raise BeliefError
 
 pub fn mass(Frame, Array[(Int, Double)], budget? : Limits) -> Mass raise BeliefError
@@ -213,6 +215,18 @@ pub fn Source::mass(Self) -> Mass
 pub fn Source::name(Self) -> String
 pub fn Source::not_equal(Self, Self) -> Bool
 pub fn Source::to_repr(Self) -> @debug.Repr
+
+pub struct SourceSensitivity {
+  omitted : String
+  conflict_without : Double
+  conflict_change : Double
+  pignistic_variation : Double
+  winner_without : String
+  winner_changed : Bool
+} derive(Eq, @debug.Debug)
+pub fn SourceSensitivity::equal(Self, Self) -> Bool
+pub fn SourceSensitivity::not_equal(Self, Self) -> Bool
+pub fn SourceSensitivity::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 
