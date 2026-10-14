@@ -10,6 +10,8 @@ pub fn bayesian(Frame, Array[Double], budget? : Limits) -> Mass raise BeliefErro
 
 pub fn conjunctive(Mass, Mass, budget? : Limits) -> Mass raise BeliefError
 
+pub fn decision_policy(max_conflict? : Double, max_nonspecific? : Double, min_margin? : Double) -> DecisionPolicy raise BeliefError
+
 pub fn default_limits() -> Limits
 
 pub fn dempster(Mass, Mass, min_survival? : Double, budget? : Limits) -> Mass raise BeliefError
@@ -56,6 +58,27 @@ pub fn BeliefError::not_equal(Self, Self) -> Bool
 pub fn BeliefError::to_repr(Self) -> @debug.Repr
 
 // Types and methods
+pub struct ActionDecision {
+  index : Int
+  label : String
+  expected_score : Double
+  margin : Double
+  accepted : Bool
+  reason : String
+  conflict : Double
+  nonspecific : Double
+} derive(Eq, @debug.Debug)
+pub fn ActionDecision::equal(Self, Self) -> Bool
+pub fn ActionDecision::not_equal(Self, Self) -> Bool
+pub fn ActionDecision::to_repr(Self) -> @debug.Repr
+
+pub struct DecisionPolicy {
+  // private fields
+} derive(Eq, @debug.Debug)
+pub fn DecisionPolicy::equal(Self, Self) -> Bool
+pub fn DecisionPolicy::not_equal(Self, Self) -> Bool
+pub fn DecisionPolicy::to_repr(Self) -> @debug.Repr
+
 pub struct Frame {
   // private fields
 } derive(Eq, @debug.Debug)
@@ -107,10 +130,13 @@ pub fn Mass::condition(Self, Int, min_survival? : Double, budget? : Limits) -> S
 pub fn Mass::condition_open(Self, Int, budget? : Limits) -> Self raise BeliefError
 pub fn Mass::conditional_interval(Self, Int, Int, min_survival? : Double, budget? : Limits) -> (Double, Double) raise BeliefError
 pub fn Mass::conflict(Self) -> Double
+pub fn Mass::decide(Self, Array[String], Array[Array[Double]], DecisionPolicy) -> ActionDecision raise BeliefError
 pub fn Mass::dense(Self, budget? : Limits) -> Array[Double] raise BeliefError
 pub fn Mass::discount(Self, Double, budget? : Limits) -> Self raise BeliefError
 pub fn Mass::entries(Self) -> Array[(Int, Double)]
 pub fn Mass::equal(Self, Self) -> Bool
+pub fn Mass::expected_losses(Self, Array[Array[Double]]) -> Array[Double] raise BeliefError
+pub fn Mass::expected_utilities(Self, Array[Array[Double]]) -> Array[Double] raise BeliefError
 pub fn Mass::focal_count(Self) -> Int
 pub fn Mass::forget_detail(Self, budget? : Limits) -> Self raise BeliefError
 pub fn Mass::frame(Self) -> Frame
