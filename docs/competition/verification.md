@@ -1,6 +1,6 @@
 # Reproducible verification inventory
 
-Audit date: 2026-10-14. This file records method and locally observed results; actual clean-runner outcomes are the repository Actions runs, not a promise inferred from this text.
+Audit date: 2026-11-01. This file records method and locally observed results; actual clean-runner outcomes are the repository Actions runs, not a promise inferred from this text.
 
 ## Counting
 
@@ -21,8 +21,12 @@ Audit date: 2026-10-14. This file records method and locally observed results; a
 
 Windows: strict check/test/build passed wasm-gc, wasm and js; all 35 tests passed each. Native strict check passed; local test/build could not execute because cc/gcc/clang is absent. Linux CI independently executes all four targets, including native with the runner C compiler. Use public Actions evidence to determine actual native execution.
 
-`moon info && moon fmt` regenerates interfaces, and CI rejects resulting diffs. The source is normalized with Moon 0.1.20261012 / moonc v0.10.15+943464bfa (2026-10-12), matching the Linux CI snapshot. The interface regeneration introduced no public signature changes; formatter migrations use `Int32` and `~` default-argument declarations. Toolchain archives are SHA-256 pinned and ETag constrained in `scripts/install-ci-toolchain.sh`; pin changes fail closed rather than fetching silently changed latest binaries.
+`moon info && moon fmt` regenerates interfaces, and CI rejects resulting diffs. The source is normalized with Moon 0.1.20261028 / moonc v0.10.18+6c83a7f62 (2026-10-28), matching the Linux CI snapshot. Interface generation renders the existing Int32 types explicitly (previously printed as Int); no exported function or numerical contract changed. Formatter migrations use `Int32` and `~` default-argument declarations. Toolchain archives are SHA-256 pinned and ETag constrained in `scripts/install-ci-toolchain.sh`; pin changes fail closed rather than fetching silently changed latest binaries.
 
 ## Release acceptance
 
 Release acceptance also requires real green CI at the exact public commit, same-account metadata, archive/privacy inspection, matching tag and a credential-free empty-cache consumer installing the exact published version. Those external facts are recorded at delivery, not fabricated by unit tests. Private participant material is intentionally not part of this source tree.
+
+## Compiler acceptance minimum
+
+The acceptance baseline requires moonc >= 0.10.16. `python scripts/check_toolchain.py` rejects older or unrecognizable compiler versions; the pinned CI installer executes the same guard before validation. Version 0.1.1 updates the official toolchain snapshot and documentation without changing evidence-fusion semantics. Public CI and consumer evidence must match the new release commit; older green runs are not evidence for this release.

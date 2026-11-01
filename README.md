@@ -1,14 +1,16 @@
 # MoonBelief
 
-有限分类框架上的证据质量函数、显式冲突融合与可拒绝决策。纯 MoonBit 实现，无运行时网络、训练或第三方算法依赖；模块 `TWISTY2Ynb/moonbelief@0.1.0`，MIT。
+有限分类框架上的证据质量函数、显式冲突融合与可拒绝决策。纯 MoonBit 实现，无运行时网络、训练或第三方算法依赖；模块 `TWISTY2Ynb/moonbelief@0.1.1`，MIT。
 
 它解决的是“若干来源只支持一组候选，但不足以选定一个候选”时的计算问题。集合质量不是普通分类概率：`{a,b}` 上的质量表示没有继续分配的支持；空集质量表示冲突。使用者必须先保证类别互斥、穷尽，并说明来源依赖性与可靠度。融合规则不是从观测自动推导的真理。
 
 ## 安装与最小集成
 
 ```sh
-moon add TWISTY2Ynb/moonbelief@0.1.0
+moon add TWISTY2Ynb/moonbelief@0.1.1
 ```
+
+先运行 `moonc -v`，确认编译器版本不低于 **0.10.16**。从源码验证时，`python scripts/check_toolchain.py` 会检查该最低版本，CI 同样强制执行。
 
 在消费者的 `moon.pkg` 中加入：
 
@@ -94,6 +96,7 @@ Windows PowerShell 推荐先把 JSON 放入字符串变量，再作为一个参�
 ## 验证
 
 ```sh
+python scripts/check_toolchain.py
 moon info && moon fmt
 moon fmt --check
 moon check --deny-warn --target wasm-gc
@@ -103,7 +106,7 @@ python scripts/differential.py
 python scripts/audit.py
 ```
 
-验证工具链为 Moon 0.1.20261012 / moonc v0.10.15+943464bfa（2026-10-12）；源码与 CI 使用同一版本的规范格式。CI 在 Linux 上分别检查/测试/构建 wasm-gc、wasm、js、native，并对三个例子断言输出。工具链下载带 ETag 与 SHA-256 校验，见 [CI 安装脚本](scripts/install-ci-toolchain.sh)。本地 Windows 已运行 wasm-gc/wasm/js；native 本地只有严格 check，缺少 C 编译器，不声称本地 native 执行成功。
+要求 moonc ≥ 0.10.16；本次验证工具链为 Moon 0.1.20261028 / moonc v0.10.18+6c83a7f62（2026-10-28）；源码与 CI 使用同一版本的规范格式。CI 在 Linux 上分别检查/测试/构建 wasm-gc、wasm、js、native，并对三个例子断言输出。工具链下载带 ETag 与 SHA-256 校验，见 [CI 安装脚本](scripts/install-ci-toolchain.sh)。本地 Windows 已运行 wasm-gc/wasm/js；native 本地只有严格 check，缺少 C 编译器，不声称本地 native 执行成功。
 
 测试不是覆盖率数字：35 个 test 声明中包含 13,475 个双源规则枚举结果，以及边界、可变别名、变换与顺序测试；另有 72 个经实际 CLI 的有理数差分案例。具体口径见 [验证说明](docs/competition/verification.md)。
 
