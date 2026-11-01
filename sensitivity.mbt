@@ -50,12 +50,19 @@ pub fn leave_one_out(
         remaining.push(sources[i])
       }
     }
-    if work >= budget.pairs {
+    if work >= budget.pairs && remaining.length() > 1 {
       raise Budget("sensitivity aggregate pair budget exhausted")
     }
     let local_budget = limits(
       max_focals=budget.focals,
-      max_pairs=budget.pairs - work,
+      // One-source pipelines perform no pair work, even when the baseline
+      // consumed the exact aggregate allowance. Limits still require a
+      // positive value; reuse the original cap only for this zero-work case.
+      max_pairs=if remaining.length() == 1 {
+        budget.pairs
+      } else {
+        budget.pairs - work
+      },
       max_dense_cells=budget.dense,
     )
     let rerun = pipeline(remaining, rule, budget=local_budget)

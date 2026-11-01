@@ -13,3 +13,23 @@ test "leave-one-out exposes decision changes without inferring credibility" {
   assert_true(report[0].pignistic_variation > 0.0)
   rejects_invalid(() => leave_one_out([source("only", a)], Yager))
 }
+
+///|
+test "leave-one-out accepts exact pair budgets and still rejects aggregate overruns" {
+  let f = frame(["a", "b"])
+  let a = simple_support(f, 1, 1.0)
+  let two = [source("one", a), source("two", a)]
+  let exact = leave_one_out(two, Yager, budget=limits(max_pairs=2))
+  assert_eq(exact.length(), 2)
+  for row in exact {
+    close(row.pignistic_variation, 0.0)
+    assert_true(!row.winner_changed)
+  }
+  rejects_budget(() => leave_one_out(two, Yager, budget=limits(max_pairs=1)))
+  let three = [source("one", a), source("two", a), source("three", a)]
+  assert_eq(
+    leave_one_out(three, Yager, budget=limits(max_pairs=10)).length(),
+    3,
+  )
+  rejects_budget(() => leave_one_out(three, Yager, budget=limits(max_pairs=9)))
+}
